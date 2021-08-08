@@ -36,6 +36,8 @@ namespace nagp_devops_assign_1.Controllers
 
         public bool TestFunction(bool val)
         {
+           //Added for coverage
+           Console.WriteLine("Covergae");
             return val;
         }
     }
