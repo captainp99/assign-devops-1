@@ -1,37 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
-	name: dotnet-app-deployment
-	labels: 
-		app: dotnet-app
+metadata:
+  name: dotnet-nagp-deployment-master
+  namespace: kubernetes-cluster-parasjain01
+  labels:
+    app: dotnet-nagp-master
 spec:
-	replicas: 4
-	selector:
-		matchLabels:
-			app: dotnet-app
-	template:
-		metadata:
-			labels:
-				app: dotnet-app
-		spec:
-			containers:
-				- name: dotnet-app
-				  image: paras22/nagp-devops-assign-1	
-				  ports: 
-					- name: http
-					  containerPort: 80
-					  protocol: TCP
------------
+  replicas: 4
+  selector:
+    matchLabels:
+      app: dotnet-nagp-master
+  template:
+    metadata:
+      labels:
+        app: dotnet-nagp-master
+    spec:
+      containers:
+        - name: dotnet-nagp-master
+          image: paras22/nagp-devops-assign-1:latest
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+---
 apiVersion: v1
 kind: Service
-metadata: 
-	name: dotnet-app
+metadata:
+  name: dotnet-nagp-master
+  namespace: kubernetes-cluster-parasjain01
 spec:
-	type:LoadBalancer
-	selector: 
-		app: dotnet-app
-	ports
-	- protocol: TCP
-	  nodePort: 30158
-	  port: 80
-	  targetPort:80
+  type: NodePort
+  selector:
+    app: dotnet-nagp-master
+  ports:
+  - port: 80
+    protocol: TCP
+    nodePort: 30157
